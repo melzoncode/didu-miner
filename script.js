@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCo7nK9J1un7mYIco_rJWcj8AYW2RSdohI",
+    authDomain: "didu-miner.firebaseapp.com",
+    projectId: "didu-miner",
+    storageBucket: "didu-miner.appspot.com",
+    messagingSenderId: "271033294031",
+    appId: "1:271033294031:web:a57dac4a0dd93f9356abba",
+    measurementId: "G-XZKRL15FTX"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Initialize services
+  const auth = firebase.auth();
+  const db = firebase.firestore();
   const mineButton = document.getElementById('mine-button');
   const coinCountElement = document.getElementById('coin-count');
   const totalCoinCountElement = document.getElementById('total-coin-count');
@@ -9,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const appContainer = document.getElementById('app-container');
   const referralLinkElement = document.getElementById('referral-link');
   const referralListElement = document.getElementById('referral-list');
-
+  
   let coinCount = 0;
   let totalCoinCount = 0;
   let user = null;
