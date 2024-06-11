@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" id="auth-container">
+        <h1>Mining App</h1>
+        <div id="auth">
+            <h2>Login/Signup</h2>
+            <form id="auth-form">
+                <input type="text" id="telegram-username" placeholder="Telegram Username" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="container" id="app-container" style="display: none;">
+        <h1>Mining App</h1>
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab('mining')">Mining</button>
+            <button class="tab-button" onclick="openTab('task')">Task</button>
+            <button class="tab-button" onclick="openTab('referral')">Referral</button>
+        </div>
+        <div id="mining" class="tab-content">
+            <div class="coin-display">
+                <p>Coins: <span id="coin-count">0</span></p>
+                <p>Total Coins: <span id="total-coin-count">0</span></p>
+            </div>
+            <button id="mine-button">Start Mining</button>
+            <p id="timer"></p>
+            <p id="message"></p>
+        </div>
+        <div id="task" class="tab-content" style="display:none;">
+            <h2>Tasks</h2>
+            <ul>
+                <li>
+                    Follow our Twitter account
+                    <button class="task-button" onclick="completeTask('twitter', 'https://twitter.com/yourproject')">Complete Task</button>
+                </li>
+                <li>
+                    Join our Telegram channel
+                    <button class="task-button" onclick="completeTask('telegram', 'https://t.me/yourproject')">Complete Task</button>
+                </li>
+                <li>
+                    Follow our Instagram
+                    <button class="task-button" onclick="completeTask('instagram', 'https://instagram.com/yourproject')">Complete Task</button>
+                </li>
+                <li>
+                    Subscribe to our YouTube channel
+                    <button class="task-button" onclick="completeTask('youtube', 'https://youtube.com/yourproject')">Complete Task</button>
+                </li>
+            </ul>
+        </div>
+        <div id="referral" class="tab-content" style="display:none;">
+            <h2>Referral</h2>
+            <p>Your referral link: <span id="referral-link"></span></p>
+            <ul id="referral-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
