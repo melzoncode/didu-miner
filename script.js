@@ -1,4 +1,40 @@
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
+    const authForm = document.getElementById('auth-form');
+    const authContainer = document.getElementById('auth-container');
+    const appContainer = document.getElementById('app-container');
+
+    authForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const telegramUsername = document.getElementById('telegram-username').value;
+        auth.signInAnonymously()
+            .then((userCredential) => {
+                const user = userCredential.user;
+                return db.collection('users').doc(user.uid).set({
+                    telegramUsername: telegramUsername,
+                    referralCode: generateReferralCode(),
+                    coins: 0,
+                    referrals: []
+                });
+            })
+            .then(() => {
+                authContainer.style.display = 'none';
+                appContainer.style.display = 'block';
+                initializeApp();
+            })
+            .catch((error) => {
+                console.error('Error signing in:', error);
+            });
+    });
+
+    function generateReferralCode() {
+        return Math.random().toString(36).substring(2, 15);
+    }
+
+    function initializeApp() {
+        // Your existing initialization code
+    }
+});
   // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCo7nK9J1un7mYIco_rJWcj8AYW2RSdohI",
@@ -72,6 +108,16 @@ firebase.initializeApp(firebaseConfig);
     loadReferrals();
   }
 
+  function updateCoinCount(userId, newCoinCount) {
+    db.collection('users').doc(userId).update({
+        coins: newCoinCount
+    }).then(() => {
+        console.log('Coin count updated');
+    }).catch((error) => {
+        console.error('Error updating coin count:', error);
+    });
+}
+
   function updateCoinCount() {
     coinCountElement.textContent = coinCount;
   }
@@ -87,6 +133,20 @@ firebase.initializeApp(firebaseConfig);
     clearInterval(miningInterval);
     timerElement.textContent = '';
   }
+
+  function getUserData(userId) {
+    db.collection('users').doc(userId).get()
+    .then((doc) => {
+        if (doc.exists) {
+            const userData = doc.data();
+            console.log('User data:', userData);
+        } else {
+            console.log('No such document!');
+        }
+    }).catch((error) => {
+        console.error('Error getting user data:', error);
+    });
+}
 
   function disableButtonFor(duration) {
     mineButton.disabled = true;
